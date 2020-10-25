@@ -15,12 +15,12 @@ public class Bispo {
         this.inGame = true;
     }
 
-    public int getColor() {
+    public int getCor() {
         return cor;
     }
     
     public String desenho(){
-        if(getColor() == 0) //peca branca
+        if(getCor() == 0) //peca branca
             return("b");
         else
             return("B");
