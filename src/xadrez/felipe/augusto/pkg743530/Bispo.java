@@ -27,10 +27,7 @@ public class Bispo {
     }
     
     public boolean checaMovimento(int linhaOrigem, int colunaOrigem, int linhaDestino, int colunaDestino){
-        if(Math.abs(linhaDestino - linhaOrigem) == Math.abs(colunaDestino - colunaOrigem))
-            return true;
-        else
-            return false;
+        return Math.abs(linhaDestino - linhaOrigem) == Math.abs(colunaDestino - colunaOrigem);
     }
 
 }
