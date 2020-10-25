@@ -1,4 +1,4 @@
-package xadrez.felipe.augusto.pkg743530;
+package xadrez.felipe.augusto.pkg743530.Peças;
 
 /**
  *

@@ -1,16 +1,16 @@
-package xadrez.felipe.augusto.pkg743530;
+package xadrez.felipe.augusto.pkg743530.Peças;
 
 /**
  *
  * @author Felipe Augusto - 743530
  */
-public class Rei {
+public class Bispo {
     //Atributos
     private int cor; //0 para brancas, 1 para pretas
     private boolean inGame;
     
     //Metodos
-    public Rei(int cor) {
+    public Bispo(int cor) {
         this.cor = cor;
         this.inGame = true;
     }
@@ -21,12 +21,13 @@ public class Rei {
     
     public String desenho(){
         if(getColor() == 0) //peca branca
-            return("r");
+            return("b");
         else
-            return("R");
+            return("B");
     }
     
     public boolean checaMovimento(int linhaOrigem, int colunaOrigem, int linhaDestino, int colunaDestino){
-        return Math.abs(linhaDestino - linhaOrigem) <= 1 && Math.abs(colunaDestino - colunaOrigem) <= 1;
+        return Math.abs(linhaDestino - linhaOrigem) == Math.abs(colunaDestino - colunaOrigem);
     }
+
 }

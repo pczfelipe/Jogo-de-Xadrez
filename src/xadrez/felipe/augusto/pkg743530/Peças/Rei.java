@@ -1,16 +1,16 @@
-package xadrez.felipe.augusto.pkg743530;
+package xadrez.felipe.augusto.pkg743530.Peças;
 
 /**
  *
  * @author Felipe Augusto - 743530
  */
-public class Dama {
+public class Rei {
     //Atributos
     private int cor; //0 para brancas, 1 para pretas
     private boolean inGame;
     
     //Metodos
-    public Dama(int cor) {
+    public Rei(int cor) {
         this.cor = cor;
         this.inGame = true;
     }
@@ -21,12 +21,12 @@ public class Dama {
     
     public String desenho(){
         if(getColor() == 0) //peca branca
-            return("d");
+            return("r");
         else
-            return("D");
+            return("R");
     }
     
     public boolean checaMovimento(int linhaOrigem, int colunaOrigem, int linhaDestino, int colunaDestino){
-        return (Math.abs(linhaDestino - linhaOrigem) == Math.abs(colunaDestino - colunaOrigem)) || (linhaOrigem == linhaDestino && colunaOrigem != colunaDestino) || ((linhaOrigem != linhaDestino) && (colunaOrigem == colunaDestino));
+        return Math.abs(linhaDestino - linhaOrigem) <= 1 && Math.abs(colunaDestino - colunaOrigem) <= 1;
     }
 }

@@ -1,16 +1,16 @@
-package xadrez.felipe.augusto.pkg743530;
+package xadrez.felipe.augusto.pkg743530.Peças;
 
 /**
  *
  * @author Felipe Augusto - 743530
  */
-public class Cavalo {
+public class Torre {
     //Atributos
     private int cor; //0 para brancas, 1 para pretas
     private boolean inGame;
     
     //Metodos
-    public Cavalo(int cor) {
+    public Torre(int cor) {
         this.cor = cor;
         this.inGame = true;
     }
@@ -21,19 +21,12 @@ public class Cavalo {
     
     public String desenho(){
         if(getColor() == 0) //peca branca
-            return("c");
+            return("t");
         else
-            return("C");
+            return("T");
     }
     
     public boolean checaMovimento(int linhaOrigem, int colunaOrigem, int linhaDestino, int colunaDestino){
-        switch (Math.abs(linhaDestino - linhaOrigem)) {
-            case 2:
-                return Math.abs(colunaDestino - colunaOrigem) == 1;
-            case 1:
-                return Math.abs(colunaDestino - colunaOrigem) == 2;
-            default:
-                return false;
-        }
-    }
+        return (linhaOrigem == linhaDestino && colunaOrigem != colunaDestino) || (linhaOrigem != linhaDestino) && (colunaOrigem == colunaDestino);
+    }  
 }
