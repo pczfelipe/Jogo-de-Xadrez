@@ -6,10 +6,10 @@ package xadrez.felipe.augusto.pkg743530.Peças;
  */
 public class Bispo {
     //Atributos
-    private int cor; //0 para brancas, 1 para pretas
+    private final int cor; //0 para brancas, 1 para pretas
     private boolean inGame;
     
-    //Metodos
+    //Metodos Especiais
     public Bispo(int cor) {
         this.cor = cor;
         this.inGame = true;
@@ -19,6 +19,7 @@ public class Bispo {
         return cor;
     }
     
+    //Metodos Personalizados
     public String desenho(){
         if(getCor() == 0) //peca branca
             return("b");

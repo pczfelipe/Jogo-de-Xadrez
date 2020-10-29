@@ -6,7 +6,7 @@ package xadrez.felipe.augusto.pkg743530.Peças;
  */
 public class Peao {
     //Atributos
-    private int cor; //0 para brancas, 1 para pretas
+    private final int cor; //0 para brancas, 1 para pretas
     private boolean inGame;
     private boolean primeiraJogada; //armazena se é a primeira jogada
     

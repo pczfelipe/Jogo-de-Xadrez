@@ -6,7 +6,7 @@ package xadrez.felipe.augusto.pkg743530.Peças;
  */
 public class Dama {
     //Atributos
-    private int cor; //0 para brancas, 1 para pretas
+    private final int cor; //0 para brancas, 1 para pretas
     private boolean inGame;
     
     //Metodos
