@@ -29,6 +29,7 @@ public class Peao {
     }
     
     public boolean checaMovimento(int linhaOrigem, int colunaOrigem, int linhaDestino, int colunaDestino){
+        System.out.println("\nTestando " + this.desenho());
         if(this.getCor() == 0) {
             switch (linhaDestino - linhaOrigem) {
                 case 2:

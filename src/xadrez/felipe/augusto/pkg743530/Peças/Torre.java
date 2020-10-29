@@ -27,6 +27,7 @@ public class Torre {
     }
     
     public boolean checaMovimento(int linhaOrigem, int colunaOrigem, int linhaDestino, int colunaDestino){
+        System.out.println("\nTestando " + this.desenho());
         return (linhaOrigem == linhaDestino && colunaOrigem != colunaDestino) || (linhaOrigem != linhaDestino) && (colunaOrigem == colunaDestino);
     }  
 }

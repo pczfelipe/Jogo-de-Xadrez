@@ -27,6 +27,7 @@ public class Rei {
     }
     
     public boolean checaMovimento(int linhaOrigem, int colunaOrigem, int linhaDestino, int colunaDestino){
+        System.out.println("\nTestando " + this.desenho());
         return Math.abs(linhaDestino - linhaOrigem) <= 1 && Math.abs(colunaDestino - colunaOrigem) <= 1;
     }
 }

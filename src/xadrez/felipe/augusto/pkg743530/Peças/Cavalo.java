@@ -27,6 +27,7 @@ public class Cavalo {
     }
     
     public boolean checaMovimento(int linhaOrigem, int colunaOrigem, int linhaDestino, int colunaDestino){
+        System.out.println("\nTestando " + this.desenho());
         switch (Math.abs(linhaDestino - linhaOrigem)) {
             case 2:
                 return Math.abs(colunaDestino - colunaOrigem) == 1;

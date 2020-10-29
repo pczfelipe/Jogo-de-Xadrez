@@ -48,7 +48,6 @@ public class Teste {
 
                 switch (opcao) {
                     case 1:
-                        System.out.println("\nTestando Bispo");
                         if(j.testePecas('b', linhaOrigem, colunaOrigem, linhaDestino, colunaDestino))
                             System.out.println("Movimento válido! Sua posição atual é: (" + linhaDestino + ", " + colunaDestino + ")");
                         else
@@ -56,7 +55,6 @@ public class Teste {
                         break;
 
                     case 2:
-                        System.out.println("\nTestando Cavalo");
                         if(j.testePecas('c', linhaOrigem, colunaOrigem, linhaDestino, colunaDestino))
                             System.out.println("Movimento válido! Sua posição atual é: (" + linhaDestino + ", " + colunaDestino + ")");
                         else
@@ -64,7 +62,6 @@ public class Teste {
                         break;
 
                     case 3:
-                        System.out.println("\nTestando Dama");
                         if(j.testePecas('d', linhaOrigem, colunaOrigem, linhaDestino, colunaDestino))
                             System.out.println("Movimento válido! Sua posição atual é: (" + linhaDestino + ", " + colunaDestino + ")");
                         else
@@ -72,7 +69,6 @@ public class Teste {
                         break;
 
                     case 4:
-                        System.out.println("\nTestando Peao");
                         if(j.testePecas('p', linhaOrigem, colunaOrigem, linhaDestino, colunaDestino))
                             System.out.println("Movimento válido! Sua posição atual é: (" + linhaDestino + ", " + colunaDestino + ")");
                         else
@@ -80,7 +76,6 @@ public class Teste {
                         break;
 
                     case 5:
-                        System.out.println("\nTestando Rei");
                         if(j.testePecas('r', linhaOrigem, colunaOrigem, linhaDestino, colunaDestino))
                             System.out.println("Movimento válido! Sua posição atual é: (" + linhaDestino + ", " + colunaDestino + ")");
                         else
@@ -88,7 +83,6 @@ public class Teste {
                         break;
 
                     case 6:
-                        System.out.println("\nTestando Torre");
                         if(j.testePecas('t', linhaOrigem, colunaOrigem, linhaDestino, colunaDestino))
                             System.out.println("Movimento válido! Sua posição atual é: (" + linhaDestino + ", " + colunaDestino + ")");
                         else

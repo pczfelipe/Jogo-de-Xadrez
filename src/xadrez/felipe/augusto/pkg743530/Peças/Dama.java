@@ -27,6 +27,7 @@ public class Dama {
     }
     
     public boolean checaMovimento(int linhaOrigem, int colunaOrigem, int linhaDestino, int colunaDestino){
+        System.out.println("\nTestando " + this.desenho());
         return (Math.abs(linhaDestino - linhaOrigem) == Math.abs(colunaDestino - colunaOrigem)) || (linhaOrigem == linhaDestino && colunaOrigem != colunaDestino) || ((linhaOrigem != linhaDestino) && (colunaOrigem == colunaDestino));
     }
 }
