@@ -1,6 +1,12 @@
 package xadrez.felipe.augusto.pkg743530;
 
-//referenciando as pecas especificas, mas na proxima fase isso irá mudar apenas para Posicao, que contem Peca
+//Impotanto Excessoes
+import Excessoes.ColunaDestino;
+import Excessoes.LinhaDestino;
+import Excessoes.OrigemIgualDestino;
+import Excessoes.OrigemVazia;
+import Excessoes.PecaFrente;
+//Importando Pecas
 import xadrez.felipe.augusto.pkg743530.Peças.Bispo;
 import xadrez.felipe.augusto.pkg743530.Peças.Cavalo;
 import xadrez.felipe.augusto.pkg743530.Peças.Dama;
@@ -13,218 +19,224 @@ import xadrez.felipe.augusto.pkg743530.Peças.Torre;
  * @author Felipe Augusto - 743530
  */
 public class Tabuleiro {
-    
     //Atributos
     private Posicao[][] mesa = new Posicao[8][8];
+    private int linha[] = {1, 2, 3, 4, 5, 6, 7, 8};
+    private String coluna[] = {"A", "B", "C", "D", "E", "F", "G", "H"};
     
     //Metodos Especiais
-    public Tabuleiro() {
+    public Tabuleiro(Peca[] pB, Peca[] pP) {
         String coluna;
+        String cor;
         
         for(int i = 8; i > 0; i--){
             for(int j = 0; j < 8; j++){
                 switch(j){
                     case 0:
-                        coluna = "A";
+                        coluna = this.coluna[0];
                         break;
                     case 1:
-                        coluna = "B";
+                        coluna = this.coluna[1];
                         break;
                     case 2:
-                        coluna = "C";
+                        coluna = this.coluna[2];
                         break;
                     case 3:
-                        coluna = "D";
+                        coluna = this.coluna[3];
                         break;
                     case 4:
-                        coluna = "E";
+                        coluna = this.coluna[4];
                         break;
                     case 5:
-                        coluna = "F";
+                        coluna = this.coluna[5];
                         break;
                     case 6:
-                        coluna = "G";
+                        coluna = this.coluna[6];
                         break;
                     case 7:
-                        coluna = "H";
+                        coluna = this.coluna[7];
                         break;
                     default:
                         coluna = "X";
                         break;
                 }
                 
-                this.mesa[i-1][j] = new Posicao();
-                this.mesa[i-1][j].setLinha(i);
-                this.mesa[i-1][j].setColuna(coluna);
-                this.mesa[i-1][j].setOcupante("");
-                
+                //verificando cor da posicao do tabuleiro e setando-a
                 if (i % 2 == 0){
                     if (j % 2 == 0)
-                        this.mesa[i-1][j].setCor(0); //casa branca
+                        cor = "00"; //casa branca
                     else
-                        this.mesa[i-1][j].setCor(1); //casa preta
+                        cor = "11"; //casa preta
                 }
                 else {
                     if (j % 2 == 0)
-                        this.mesa[i-1][j].setCor(1); //casa preta
+                        cor = "11"; //casa preta
                     else
-                        this.mesa[i-1][j].setCor(0); //casa branca
+                        cor = "00"; //casa branca
                 }
+                
+                //criando objeto posicao e adicionando linha e coluna do tabuleiro
+                this.mesa[i-1][j] = new Posicao(cor, i, coluna);
             }
+        }
+        
+        //setando pecas (Torre, Cavalo, Bispo, Rei, Dama) inicialmente no tabuleiro
+        for(int i = 0; i < 8; i++){
+            this.mesa[7][i].setOcupante(pP[i]);
+            this.mesa[0][i].setOcupante(pB[i]);
+        }
+        //setando pecas (Peao) inicialmente no tabuleiro
+        for(int i = 0; i < 8; i++){
+            this.mesa[6][i].setOcupante(pP[i+8]);
+            this.mesa[1][i].setOcupante(pB[i+8]);
         }
     }
     
-    /* PROXIMA FASE
-    public void setMesa(Posicao[][] mesa) {
-        this.mesa = mesa;
-    }
-    
-    public String getOcupante(){
-        return "";
-    }
-    */
-    
-    public Posicao getPosicao(int linha, int coluna){
+    private Posicao getPosicao(int linha, int coluna){
         return this.mesa[linha][coluna];
     }
     
     //Metodos Personalizados
     public void desenho(){
-        String colunas[] = {"A", "B", "C", "D", "E", "F", "G", "H"};
+        String colunas[] = {"AA", "BB", "CC", "DD", "EE", "FF", "GG", "HH"};
         
         //imprimindo as coordenadas
         System.out.print("     ");
         for(int i = 0; i < 8; i++)
             System.out.print(colunas[i] + " ");
         
-        System.out.println("");
+        System.out.println("\n");
         
         for(int i = 8; i > 0; i--){
             //imprimindo as coordenadas
             System.out.print(i + "    ");
-            for(int j = 0; j < 8; j++)
-                System.out.print(getPosicao(i-1, j).isCor() + " ");
+            for(int j = 0; j < 8; j++){
+                if(this.mesa[i-1][j].getOcupante() == null)
+                    System.out.print(getPosicao(i-1, j).isCor() + " ");
+                else
+                    System.out.print(this.mesa[i-1][j].getOcupante().desenho() + " ");
+            }
             
             System.out.println("");
         }
     }
     
     //checa movimento está recebendo as peças especificas mas na proxima fase ira receber apenas objeto Posicao
-    public boolean checaMovimento(char peca, int cor, int linhaOrigem, String colunaOrigem, int linhaDestino, String colunaDestino){
+    public boolean checaMovimento(Peca p, int linhaOrigem, String colunaOrigem, int linhaDestino, String colunaDestino){
+        //variaveis para converter coluna String para inteiro para buscar na matriz mesa
         int colunaOrigemInt, colunaDestinoInt;
 
-        //verificar se está disponivel a posicao - PROXIMA FASE IMPLEMENTAR
-        //Posicao p = this.getPosicao(linhaOrigem, colunaOrigem);
-        
         //convertendo string coluna para int
         switch(colunaOrigem){
             case "A":
-                colunaOrigemInt = 1;
+                colunaOrigemInt = 0;
                 break;
             case "B":
-                colunaOrigemInt = 2;
+                colunaOrigemInt = 1;
                 break;
             case "C":
-                colunaOrigemInt = 3;
+                colunaOrigemInt = 2;
                 break;
             case "D":
-                colunaOrigemInt = 4;
+                colunaOrigemInt = 3;
                 break;
             case "E":
-                colunaOrigemInt = 5;
+                colunaOrigemInt = 4;
                 break;
             case "F":
-                colunaOrigemInt = 6;
+                colunaOrigemInt = 5;
                 break;
             case "G":
-                colunaOrigemInt = 7;
+                colunaOrigemInt = 6;
                 break;
             case "H":
-                colunaOrigemInt = 8;
+                colunaOrigemInt = 7;
                 break;
             default:
-                colunaOrigemInt = 9;
+                colunaOrigemInt = 8;
                 break;
         }
         //convertendo string coluna para int
         switch(colunaDestino){
             case "A":
-                colunaDestinoInt = 1;
+                colunaDestinoInt = 0;
                 break;
             case "B":
-                colunaDestinoInt = 2;
+                colunaDestinoInt = 1;
                 break;
             case "C":
-                colunaDestinoInt = 3;
+                colunaDestinoInt = 2;
                 break;
             case "D":
-                colunaDestinoInt = 4;
+                colunaDestinoInt = 3;
                 break;
             case "E":
-                colunaDestinoInt = 5;
+                colunaDestinoInt = 4;
                 break;
             case "F":
-                colunaDestinoInt = 6;
+                colunaDestinoInt = 5;
                 break;
             case "G":
-                colunaDestinoInt = 7;
+                colunaDestinoInt = 6;
                 break;
             case "H":
-                colunaDestinoInt = 8;
+                colunaDestinoInt = 7;
                 break;
             default:
-                colunaDestinoInt = 9;     
+                colunaDestinoInt = 8;     
                 break;
         }
-  
-        //verificando se viola as dimensoes do tabuleiro
-        if (linhaOrigem > 8 || linhaOrigem < 1){
-            System.out.println("Voce violou as dimensões do tabuleiro!");
-            return false;
-        }
-	if (colunaOrigemInt > 8 || colunaOrigemInt < 1){
-            System.out.println("Voce violou as dimensões do tabuleiro!");
-            return false;
-        }
-	if (linhaDestino > 8 || linhaDestino < 1){
-            System.out.println("Voce violou as dimensões do tabuleiro!");
-            return false;
-        }
-	if (colunaDestinoInt > 8 || colunaDestinoInt < 1){
-            System.out.println("Voce violou as dimensões do tabuleiro!");
-            return false;
-        }
         
-        //verificar se posicao esta ocupada - PROXIMA FASE
-        
-        //criando objetos no tabuleiro para testar movimentos
-        if (peca == 'p' || peca == 'P') {
-            Peao novoP = new Peao(cor);
-            return novoP.checaMovimento(linhaOrigem, colunaOrigemInt, linhaDestino, colunaDestinoInt);
-	}
-	else if (peca == 't' || peca == 'T') {
-            Torre novaT = new Torre(cor);
-            return novaT.checaMovimento(linhaOrigem, colunaOrigemInt, linhaDestino, colunaDestinoInt);
-	}
-	else if (peca == 'c' || peca == 'C') {
-            Cavalo novoC = new Cavalo(cor);
-            return novoC.checaMovimento(linhaOrigem, colunaOrigemInt, linhaDestino, colunaDestinoInt);
-	}
-	else if (peca == 'b' || peca == 'B') {
-            Bispo novoB = new Bispo(cor);
-            return novoB.checaMovimento(linhaOrigem, colunaOrigemInt, linhaDestino, colunaDestinoInt);
-	}
-	else if (peca == 'r' || peca == 'R') {
-            Rei novoR = new Rei(cor);
-            return novoR.checaMovimento(linhaOrigem, colunaOrigemInt, linhaDestino, colunaDestinoInt);
-	}
-	else if (peca == 'd' || peca == 'D') {
-            Dama novaD = new Dama(cor);
-            return novaD.checaMovimento(linhaOrigem, colunaOrigemInt, linhaDestino, colunaDestinoInt);
-	}
-	else {
+        try{
+            //verificando se a coordenada de destino esta dentro das dimensoes do tabuleiro
+            for(int i = 0; i < 8; i++){
+                if(this.linha[i] != linhaDestino)
+                    throw new LinhaDestino();
+                if(this.coluna[i] != colunaDestino)
+                    throw new ColunaDestino();
+            }
+            
+            //verificando se a posicao de origem eh valida
+            if(this.mesa[linhaOrigem-1][colunaOrigemInt].getOcupante() == null)
+                throw new OrigemVazia();
+            if((linhaOrigem == linhaDestino) && (colunaOrigem == colunaDestino))
+                throw new OrigemIgualDestino(); 
+            
+            //verificando se existe alguma peca na frente
+            
+            
+            //verificando se o movimento eh valido de acordo com a peca informada
+            if(p.checaMovimento(linhaOrigem, colunaOrigemInt, linhaDestino, colunaDestinoInt) == false)
+                throw new Exception();
+            
+            //se passar por todas as excessoes o movimento eh valido
+            System.out.println("\nErro: Movimento Válido! A peça agora está em [" + linhaDestino + ',' + colunaDestino + ']');
+            return true;
+            
+        }
+        catch(LinhaDestino e){
+            System.out.println("\nErro: Movimento Inválido! Verifique a linha de destino informada!");
             return false;
-	}
+        }
+        catch(ColunaDestino e){
+            System.out.println("\nErro: Movimento Inválido! Verifique a coluna de destino informada!");
+            return false;
+        }
+        catch(OrigemVazia e){
+            System.out.println("\nErro: Movimento Inválido! A Coordenada de Origem informada não possui nenhuma peça!");
+            return false;
+        }
+        catch(OrigemIgualDestino e){
+            System.out.println("\nErro: Movimento Inválido! A Coordenada de Origem é a mesma que a Coordenada de Destino!");
+            return false;
+        }
+        catch(PecaFrente e){
+            System.out.println("\nErro: Movimento Inválido! Existe uma peca no meio do caminho do movimento!");
+            return false;
+        }
+        catch(Exception e){
+            System.out.println("\nErro: Movimento Inválido! Verifique se o movimento informado é válido de acordo com o tipo de peça selecionada!");
+            return false;
+        }
     }
-    
 }

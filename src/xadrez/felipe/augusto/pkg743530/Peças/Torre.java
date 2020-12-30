@@ -1,33 +1,27 @@
 package xadrez.felipe.augusto.pkg743530.Peças;
+import xadrez.felipe.augusto.pkg743530.Peca;
 
 /**
  *
  * @author Felipe Augusto - 743530
  */
-public class Torre {
-    //Atributos
-    private final int cor; //0 para brancas, 1 para pretas
-    private boolean inGame;
-    
-    //Metodos
+public class Torre extends Peca{
+    //Metodos Especiais
     public Torre(int cor) {
-        this.cor = cor;
-        this.inGame = true;
-    }
-
-    public int getColor() {
-        return cor;
+        super(cor);
     }
     
+    //Metodos Personalizados
+    @Override
     public String desenho(){
-        if(getColor() == 0) //peca branca
-            return("t");
+        if(getCor()== 0) //peca branca
+            return("t+");
         else
-            return("T");
+            return("T-");
     }
     
+    @Override
     public boolean checaMovimento(int linhaOrigem, int colunaOrigem, int linhaDestino, int colunaDestino){
-        System.out.println("\nTestando " + this.desenho());
         return (linhaOrigem == linhaDestino && colunaOrigem != colunaDestino) || (linhaOrigem != linhaDestino) && (colunaOrigem == colunaDestino);
     }  
 }

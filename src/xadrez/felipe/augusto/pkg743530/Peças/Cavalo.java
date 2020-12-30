@@ -1,33 +1,26 @@
 package xadrez.felipe.augusto.pkg743530.Peças;
+import xadrez.felipe.augusto.pkg743530.Peca;
 
 /**
  *
  * @author Felipe Augusto - 743530
  */
-public class Cavalo {
-    //Atributos
-    private final int cor; //0 para brancas, 1 para pretas
-    private boolean inGame;
-    
-    //Metodos
+public class Cavalo extends Peca{
+    //Metodos Especiais
     public Cavalo(int cor) {
-        this.cor = cor;
-        this.inGame = true;
+        super(cor); //Chamando construtor herdado da classe Peca
     }
 
-    public int getCor() {
-        return cor;
-    }
-    
+    @Override
     public String desenho(){
         if(getCor() == 0) //peca branca
-            return("c");
+            return("c+");
         else
-            return("C");
+            return("C-");
     }
     
+    @Override
     public boolean checaMovimento(int linhaOrigem, int colunaOrigem, int linhaDestino, int colunaDestino){
-        System.out.println("\nTestando " + this.desenho());
         switch (Math.abs(linhaDestino - linhaOrigem)) {
             case 2:
                 return Math.abs(colunaDestino - colunaOrigem) == 1;

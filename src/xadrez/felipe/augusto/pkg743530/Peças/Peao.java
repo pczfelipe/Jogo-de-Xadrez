@@ -1,35 +1,36 @@
 package xadrez.felipe.augusto.pkg743530.Peças;
+import xadrez.felipe.augusto.pkg743530.Peca;
+
 
 /**
  *
  * @author Felipe Augusto - 743530
  */
-public class Peao {
+public class Peao extends Peca{
     //Atributos
-    private final int cor; //0 para brancas, 1 para pretas
-    private boolean inGame;
     private boolean primeiraJogada; //armazena se é a primeira jogada
     
-    //Metodos
+    //Metodos Especiais
     public Peao(int cor) {
-        this.cor = cor;
-        this.inGame = true;
+        super(cor); //Chamando construtor herdado da classe Peca
         this.primeiraJogada = true;
     }
 
-    public int getCor() {
-        return cor;
+    public void setPrimeiraJogada() {
+        this.primeiraJogada = false;
     }
     
+    //Metodos Personalizados
+    @Override
     public String desenho(){
         if(getCor() == 0) //peca branca
-            return("p");
+            return("p+");
         else
-            return("P");
+            return("P-");
     }
     
+    @Override
     public boolean checaMovimento(int linhaOrigem, int colunaOrigem, int linhaDestino, int colunaDestino){
-        System.out.println("\nTestando " + this.desenho());
         if(this.getCor() == 0) {
             switch (linhaDestino - linhaOrigem) {
                 case 2:

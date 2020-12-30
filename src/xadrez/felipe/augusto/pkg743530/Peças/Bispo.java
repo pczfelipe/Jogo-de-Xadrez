@@ -1,34 +1,27 @@
 package xadrez.felipe.augusto.pkg743530.Peças;
+import xadrez.felipe.augusto.pkg743530.Peca;
 
 /**
  *
  * @author Felipe Augusto - 743530
  */
-public class Bispo {
-    //Atributos
-    private final int cor; //0 para brancas, 1 para pretas
-    private boolean inGame;
-    
+public class Bispo extends Peca{
     //Metodos Especiais
     public Bispo(int cor) {
-        this.cor = cor;
-        this.inGame = true;
+        super(cor); //Chamando construtor herdado da classe Peca
     }
 
-    public int getCor() {
-        return cor;
-    }
-    
     //Metodos Personalizados
+    @Override
     public String desenho(){
         if(getCor() == 0) //peca branca
-            return("b");
+            return("b+");
         else
-            return("B");
+            return("B-");
     }
     
+    @Override
     public boolean checaMovimento(int linhaOrigem, int colunaOrigem, int linhaDestino, int colunaDestino){
-        System.out.println("\nTestando " + this.desenho());
         return Math.abs(linhaDestino - linhaOrigem) == Math.abs(colunaDestino - colunaOrigem);
     }
 

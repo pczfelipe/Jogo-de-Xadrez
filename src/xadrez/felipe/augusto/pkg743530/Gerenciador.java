@@ -6,19 +6,24 @@ import java.util.Scanner;
  *
  * @author Felipe Augusto - 743530
  */
-public class Teste {
+public class Gerenciador {
 
     public static void main(String[] args) {
         Scanner read = new Scanner(System.in);
         int opcao = 0; //menu para testar peca
         int linhaOrigem, linhaDestino; 
         String colunaOrigem, colunaDestino;
+        String j1, j2; //nomes do jogadores j1 branco, j2 preto
+        
+        //Jogadores
+        System.out.print("Digite o nome do Jogador 1 (Peças Brancas): ");
+        j1 = read.next();
+        System.out.print("\nDigite o nome do Jogador 2 (Peças Pretas): ");
+        j2 = read.next();
         
         //Boas Vindas e Tabuleiro Inicial
-        //0 são posicoes em branco e 1 são posicoes em preto
-        System.out.println("\nBEM VINDOS AO JOGO DE XADREZ!\n");
-        
-        Jogo j = new Jogo();
+        System.out.println("\nBEM VINDOS AO JOGO DE XADREZ! (" + j1 + " x " + j2+ ")\n");
+        Jogo j = new Jogo(j1, j2);
         
 	do {
             System.out.println("\n\n### TESTE DAS PEÇAS DE XADREZ ###");

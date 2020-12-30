@@ -1,33 +1,27 @@
 package xadrez.felipe.augusto.pkg743530.Peças;
+import xadrez.felipe.augusto.pkg743530.Peca;
 
 /**
  *
  * @author Felipe Augusto - 743530
  */
-public class Dama {
-    //Atributos
-    private final int cor; //0 para brancas, 1 para pretas
-    private boolean inGame;
-    
-    //Metodos
+public class Dama extends Peca{
+    //Metodos Especiais
     public Dama(int cor) {
-        this.cor = cor;
-        this.inGame = true;
+        super(cor); //Chamando construtor herdado da classe Peca
     }
 
-    public int getCor() {
-        return cor;
-    }
-    
+    //Metodos Personalizados
+    @Override
     public String desenho(){
         if(getCor() == 0) //peca branca
-            return("d");
-        else
-            return("D");
+            return("d+");
+        else    
+            return("D-");
     }
     
+    @Override
     public boolean checaMovimento(int linhaOrigem, int colunaOrigem, int linhaDestino, int colunaDestino){
-        System.out.println("\nTestando " + this.desenho());
         return (Math.abs(linhaDestino - linhaOrigem) == Math.abs(colunaDestino - colunaOrigem)) || (linhaOrigem == linhaDestino && colunaOrigem != colunaDestino) || ((linhaOrigem != linhaDestino) && (colunaOrigem == colunaDestino));
     }
 }
